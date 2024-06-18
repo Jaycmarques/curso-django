@@ -27,6 +27,8 @@ jobs:
           pip install pipenv
           PIPENV_SHELL=0 pipenv install --dev
           pipenv sync -d
+          pipenv shell
+          
     - name: Set environment variables
       run: |
           export DJANGO_SETTINGS_MODULE=pypro.settings     
