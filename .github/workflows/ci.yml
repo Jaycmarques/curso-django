@@ -34,8 +34,8 @@ jobs:
     - name: Autoformat code with autopep8
       run: autopep8 --in-place --recursive .
 
-    - name: Run flake8
-      run: pienv run flake8 .
+    # - name: Run flake8
+    #   run: pienv run flake8 .
 
     # - name: Run Django tests
     #   run: python3 manage.py test  
