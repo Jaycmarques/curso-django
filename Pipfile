@@ -10,6 +10,7 @@ pytest-django = "*"
 pytest = "*"
 pytest-cov = "*"
 coverage = "*"
+python-decouple = "*"
 
 [dev-packages]
 flake8 = "*"

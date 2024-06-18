@@ -27,6 +27,7 @@ jobs:
           pip install pipenv
           PIPENV_SHELL=0 pipenv install --dev
           pipenv sync -d
+          cp contrib/env-sample .env
           
 
     - name: Set environment variables
