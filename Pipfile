@@ -13,6 +13,10 @@ coverage = "*"
 python-decouple = "*"
 dj-database-url = "*"
 psycopg2-binary = "*"
+django-s3-folder-storage = "*"
+boto3 = "*"
+django-storages = "*"
+awscli = "*"
 
 [dev-packages]
 flake8 = "*"
