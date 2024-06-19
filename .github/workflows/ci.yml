@@ -12,6 +12,21 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:13
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+        options: >-
+          --health-cmd "pg_isready -U test_user -d test_db"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
     - name: Check out the repository
       uses: actions/checkout@v3
@@ -28,11 +43,11 @@ jobs:
           PIPENV_SHELL=0 pipenv install --dev
           pipenv sync -d
           cp contrib/env-sample .env
-          
 
     - name: Set environment variables
       run: |
-          export DJANGO_SETTINGS_MODULE=pypro.settings     
+          echo "DJANGO_SETTINGS_MODULE=pypro.settings" >> $GITHUB_ENV
+          echo "DATABASE_URL=postgres://test_user:test_password@localhost:5432/test_db" >> $GITHUB_ENV     
 
     - name: Install additional tools
       run: |
@@ -42,15 +57,19 @@ jobs:
       run: autopep8 --in-place --recursive .
 
     # - name: Run flake8
-    #   run: pienv run flake8 .
+    #   run: pipenv run flake8 .
 
-    # - name: Run Django tests
-    #   run: python3 manage.py test  
+    - name: Apply migrations
+      run: |
+        pipenv run python manage.py migrate
+
+    - name: Run Django tests
+      run: |
+        pipenv run python manage.py test  
 
     - name: Run pytest with coverage
       run: |
-        pipenv run pytest
-        
+        pipenv run pytest --cov=.
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v4.0.1
