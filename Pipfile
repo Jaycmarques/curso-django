@@ -11,6 +11,7 @@ pytest = "*"
 pytest-cov = "*"
 coverage = "*"
 python-decouple = "*"
+dj-database-url = "*"
 
 [dev-packages]
 flake8 = "*"
