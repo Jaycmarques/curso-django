@@ -17,6 +17,7 @@ django-s3-folder-storage = "*"
 boto3 = "*"
 django-storages = "*"
 awscli = "*"
+collectfast = "*"
 
 [dev-packages]
 flake8 = "*"
