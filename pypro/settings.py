@@ -15,7 +15,7 @@ import os
 import dj_database_url
 from pathlib import Path
 from decouple import config, Csv
-import s3_folder_storage
+import boto3
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -121,25 +121,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', default=None)
 
-# STORAGE CONFIGURATIN IN S3 AWS
+# STORAGE CONFIGURATION IN S3 AWS
 # -----------------------------------------------------------------
 
-# settings.py
-
-# Importações necessárias
-
-# Configuração de armazenamento em S3 com django-storages
-if config('AWS_ACCESS_KEY_ID', default=None):
-    # Configuração para AWS S3
-    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+if AWS_ACCESS_KEY_ID:
     AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
     AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME', default=None)
@@ -159,12 +152,10 @@ if config('AWS_ACCESS_KEY_ID', default=None):
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 
-# Restante das configurações
-
-    INSTALLED_APPS.append('s3_folder_storage')
     INSTALLED_APPS.append('storages')
 
-    # Default primary key field type
-    # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+# Restante das configurações
 
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
