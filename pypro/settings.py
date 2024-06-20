@@ -9,13 +9,11 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-from decouple import config
 from functools import partial
 import os
 import dj_database_url
 from pathlib import Path
 from decouple import config, Csv
-import boto3
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -108,10 +106,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'America/Sao_Paulo'
-
 
 USE_I18N = True
 
@@ -145,8 +142,26 @@ if AWS_ACCESS_KEY_ID:
     }
 
     # Configurações de armazenamento estático e de mídia
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3MediaStorage'
+    STORAGES = {
+        'default': {
+            'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
+            'OPTIONS': {
+                'access_key': AWS_ACCESS_KEY_ID,
+                'secret_key': AWS_SECRET_ACCESS_KEY,
+                'bucket_name': AWS_STORAGE_BUCKET_NAME,
+                'region_name': AWS_S3_REGION_NAME,
+            },
+        },
+        'staticfiles': {
+            'BACKEND': 'storages.backends.s3boto3.S3StaticStorage',
+            'OPTIONS': {
+                'access_key': AWS_ACCESS_KEY_ID,
+                'secret_key': AWS_SECRET_ACCESS_KEY,
+                'bucket_name': AWS_STORAGE_BUCKET_NAME,
+                'region_name': AWS_S3_REGION_NAME,
+            },
+        },
+    }
 
     # URLs
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
