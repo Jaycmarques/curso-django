@@ -124,7 +124,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
-
+COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
 COLLECTFAST_ENABLE = False
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', default=None)
