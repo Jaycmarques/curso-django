@@ -9,7 +9,7 @@ from django.core.mail import send_mail
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, username, email, password, **extra_fields):
+    def _create_user(self, username, email, password=None, **extra_fields):
         """
         Create and save a user with the given email, and password.
         """
@@ -21,7 +21,7 @@ class UserManager(BaseUserManager):
         # managers are by definition working on the real model.
 
         user = self.model(email=email, **extra_fields)
-        user.set.password(password)
+        user.set_password(password)
         user.save(using=self._db)
         return user
 
