@@ -137,8 +137,9 @@ if AWS_ACCESS_KEY_ID:
     AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
     AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME', default=None)
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-    AWS_DEFAULT_ACL = 'private'
-    AWS_QUERYSTRING_AUTH = False
+    AWS_DEFAULT_ACL = 'public'
+    AWS_QUERYSTRING_AUTH = True
+    # AWS_S3_CUSTOM_DOMAIN = None
     AWS_S3_FILE_OVERWRITE = False
     COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
     COLLECTFAST_ENABLE = True
