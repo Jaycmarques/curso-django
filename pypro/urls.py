@@ -16,10 +16,17 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from base.views import home
+from django.conf import settings
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name='home'),  # Associa a função home à URL raiz ('/')
+    path('', home, name='home'),
+    # path("__debug__/", include("debug_toolbar.urls")),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns.append(path("__debug__/", include(debug_toolbar.urls)),)

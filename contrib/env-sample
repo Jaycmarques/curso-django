@@ -5,3 +5,4 @@ DATABASE_URLS = postgres://postgres:postgres@localhost/test_db
 AWS_ACCESS_KEY_ID = aws_access_key
 AWS_SECRET_ACCESS_KEY = secret_key
 AWS_STORAGE_BUCKET_NAME = storage_name
+INTERNAL_IPS = 127.0.0.1

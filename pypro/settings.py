@@ -75,6 +75,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pypro.wsgi.application'
 
+# Debug Toolbar config
+
+INTERNAL_IPS = config('INTERNAL_IPS', cast=Csv(), default='127.0.0.1')
+
+if DEBUG:
+    INSTALLED_APPS.append('debug_toolbar')
+    MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware",)
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -133,16 +140,16 @@ AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', default=None)
 # -----------------------------------------------------------------
 
 if AWS_ACCESS_KEY_ID:
+    COLLECTFAST_ENABLE = True
     AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
     AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME', default=None)
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-    AWS_DEFAULT_ACL = 'public'
+    AWS_DEFAULT_ACL = None
     AWS_QUERYSTRING_AUTH = True
     # AWS_S3_CUSTOM_DOMAIN = None
     AWS_S3_FILE_OVERWRITE = False
     COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
-    COLLECTFAST_ENABLE = True
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',
     }
