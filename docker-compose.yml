@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:latest
+    container_name: cursodjango_database
+    environment:
+      - LC_ALL=C.UTF-8
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pythonpro
+      - POSTGRES_DB=cursodjango
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+    driver: local
