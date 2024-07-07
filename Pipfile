@@ -24,6 +24,8 @@ sentry-sdk = "*"
 
 [dev-packages]
 flake8 = "*"
+model-mommy = "*"
+model-bakery = "*"
 
 [requires]
 python_version = "3.10"
