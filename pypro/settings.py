@@ -33,6 +33,12 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 AUTH_USER_MODEL = 'base.User'
 
+CORS_ALLOW_ALL_ORIGINS = True  # Permitir todas as origens durante o desenvolvimento
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",  # Substitua pelo seu domínio ou "*"
+]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,9 +49,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'collectfast',
     'django.contrib.staticfiles',
+    'corsheaders',
     'base',
     'videos',
     'modulos',
+    'ordered_model',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'pypro.urls'
