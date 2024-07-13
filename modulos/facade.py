@@ -17,3 +17,7 @@ def encontrar_modulo(slug: str):
 
 def listar_aulas(modulo: Modulo):
     return list(modulo.aula_set.order_by('order').all())
+
+
+def encontrar_aula(slug: str):
+    return Aula.objects.get(slug=slug)
