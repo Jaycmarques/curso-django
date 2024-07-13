@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'videos',
     'modulos',
     'ordered_model',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
