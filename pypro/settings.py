@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'modulos',
     'ordered_model',
     'django_extensions',
+    'turmas',
 ]
 
 MIDDLEWARE = [
