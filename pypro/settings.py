@@ -33,6 +33,11 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 AUTH_USER_MODEL = 'base.User'
 
+LOGIN_REDIRECT_URL = '/modulos/'
+
+LOGOUT_REDIRECT_URL = '/'
+
+
 CORS_ALLOW_ALL_ORIGINS = True  # Permitir todas as origens durante o desenvolvimento
 
 CORS_ALLOWED_ORIGINS = [
